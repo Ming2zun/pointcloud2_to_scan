@@ -84,6 +84,7 @@ class PointCloudToScanWithHeightFilterNode(Node):
     def cartesian_to_polar(xy: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
         r = np.sqrt(xy[:, 0]**2 + xy[:, 1]**2)
         theta = np.arctan2(xy[:, 1], xy[:, 0])
+        theta = np.where(theta < 0, theta + 2 * np.pi, theta)
         return r, theta
 
 def main(args=None):
